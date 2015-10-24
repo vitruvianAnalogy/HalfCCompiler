@@ -1,0 +1,4 @@
+all:intermediate
+	./object $(shell read -p "Input File: " ;echo $$REPLY) $(shell read -p "Output File: " ;echo $$REPLY)
+intermediate: Nishant_Rawat_Project4.cpp
+	g++ Nishant_Rawat_Project4.cpp -o object

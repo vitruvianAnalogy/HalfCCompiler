@@ -1,0 +1,183 @@
+void default_case()
+{
+	//outfile<<"Entered default case";
+	backToken();
+    if(nextToken().word=="DEFAULT")
+    {
+		//cout<<"Default";
+		if(nextToken().word==":")
+	{
+			//cout<<":";
+			body();
+		}
+
+	}
+}
+void case_stmt()
+{
+	//cout<<"Entered case stmt";
+	string r1="LOD ";
+	string r2=global_var;
+	string r3=",0";
+	string r= r1+r2+r3;
+	mylist.push_back(r);
+	//outfile<<"LOD "<<global_var<<",0"<<endl;
+	//outfile<<"\n";
+	pc++;
+	switch_label++;
+//    string s1=convert_to_string(pc);
+//    string s2=convert_to_string(switch_label);
+//    labels+="#switch_label" + s2 + "=" + s1;
+	if(nextToken().word=="CASE")
+	{
+
+
+			//cout<<"CASE";
+			string nextWord=nextToken().word;
+			string s1="LIT ";
+			string s2=nextWord;
+			string s3=", 0";
+			string s=s1+s2+s3;
+			mylist.push_back(s);
+			//outfile<<"LIT"<<nextWord<<",0"<<endl;
+			//outfile<<"\n";
+			pc++;
+			string p1="OPR ";
+			string p2="14";
+			string p3=", 0";
+			string p=p1+p2+p3;
+			mylist.push_back(p);
+			//outfile<<"OPR"<<"14" <<",0"<<endl;
+			//outfile<<"\n";
+			pc++;
+			//switch_labell++;
+			string h1="JMC ";
+			string h2="#switch_label";
+			string h4=convert_to_string(switch_label);
+			string h3=", false";
+			string h=h1 + h2 + h4 + h3;
+			mylist.push_back(h);
+			//outfile<<"JMC"<<"label4"<<"false"<<endl;
+			//outfile<<"\n";
+			pc++;
+			if(nextToken().word==":")
+			{
+				//cout<<":";
+			}
+			body();
+			jump_flag=1;
+			switch_labell=3;
+			string f1="JMP ";
+			string f2="#switch_labell";
+			string f4=convert_to_string(switch_labell);
+			string f3=",0";
+			string f=f1+f2+f4+f3;
+			mylist.push_back(f);
+			//outfile<<"JMP"<<"label5"<<",0"<<endl;
+			pc++;
+			switch_jump=f4;
+			//cout<<"++++++++++++++++++++";
+			//cout<<"valueof pc";
+			//cout<<pc;
+			string temp=global_var;
+			global_var="label4";
+			global_label+="#label4=" + pc;
+			//insertSymbol(pc);
+			global_var=temp;
+			//outfile<<"\n";
+
+	}
+}
+void case_list()
+{
+
+	case_stmt();
+	pc++;
+	string s1=convert_to_string(pc);
+	string s2=convert_to_string(switch_label);
+	if(label_count==0)
+	{
+		labels+="#switch_label" + s2 + "=" + s1;
+		label_count=1;
+	}
+	else
+	{
+		labels+=", #switch_label" + s2 + "=" + s1;
+	}
+    pc--;
+	string a=nextToken().word;
+	if(a=="}")
+	{
+		//switch_label++;
+//		pc++;
+//		string cs=convert_to_string(pc);
+//		if(label_count==0)
+//		{
+//			labels+="#switch_labell"+ switch_jump + "=" + cs;
+//			label_count=1;
+//		}
+//		else
+//		{
+//			labels+=", #switch_labell"+ switch_jump + "=" + cs;
+//		}
+//					pc--;
+
+		//cout<<"}";
+	}
+	else if(a=="DEFAULT")
+	{
+		//&& jump_flag==0
+		default_case();
+
+	}
+	else
+	{
+		backToken();
+		case_list();
+	}
+}
+void switch_stmt()
+{
+	//cout<<"switch statement";
+	if(nextToken().name=="IDENTIFIER")
+	{
+		//cout<<"IDENTIFIER";
+		backToken();
+		global_var=nextToken().word;
+		//outfile<<"LOD"<<global_var<<",0";
+		if(nextToken().word=="{")
+		{
+			//cout<<"{";
+			case_list();
+			//cout<<"case list completes here";
+
+			if(nextToken().word=="}")
+			{
+				//cout<<"}";
+				pc++;
+				string cs=convert_to_string(pc);
+				if(label_count==0)
+				{
+					labels+="#switch_labell"+ switch_jump + "=" + cs;
+					label_count=1;
+				}
+				else
+				{
+					labels+=", #switch_labell"+ switch_jump + "=" + cs;
+				}
+				pc--;
+
+				//cout<<"}";
+			}
+		}
+	}
+	else error_method();
+	string temp=global_var;
+	global_var="label5";
+	//cout<<"++++++++++++++++++++";
+	//cout<<"valueof pc";
+	//cout<<pc;
+	global_label+="#label5=" + pc;
+	//insertSymbol(pc);
+	global_var=temp;;
+}

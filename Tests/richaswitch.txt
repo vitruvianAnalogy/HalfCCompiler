@@ -1,0 +1,85 @@
+a;
+{
+a=5;
+WHILE a>1
+{
+WHILE a>4
+{
+IF a>1
+{
+print a;
+}
+a=a-1;
+print a;
+}
+a=a-1;
+print a;
+}
+SWITCH a
+{
+CASE 2:
+{print a;}
+CASE 3:
+{print a;}
+DEFAULT:
+{print a;}
+}
+print a;
+}
+
+
+
+
+
+
+a
+#while_label1=3, #while_label2=7, #label1=17, #whilelabel2=24, #whilelabel1=31, #switch_label1=38, #switch_label2=45, #switch_labell3=47
+LIT 5,0
+STO a,0
+LOD a,0
+LIT 1,0
+OPR 11,0
+JMC #whilelabel1, false
+LOD a,0
+LIT 4,0
+OPR 11,0
+JMC #whilelabel2, false
+LOD a,0
+LIT 1,0
+OPR 11,0
+JMC #label1, false
+LOD a,0
+OPR 21,0
+LOD a,0
+LIT 1,0
+OPR 3,0
+STO a,0
+LOD a,0
+OPR 21,0
+JMP #while_label2, 0
+LOD a,0
+LIT 1,0
+OPR 3,0
+STO a,0
+LOD a,0
+OPR 21,0
+JMP #while_label1, 0
+LOD a,0
+LIT 2, 0
+OPR 14, 0
+JMC #switch_label1, false
+LOD a,0
+OPR 21,0
+JMP #switch_labell3,0
+LOD a,0
+LIT 3, 0
+OPR 14, 0
+JMC #switch_label2, false
+LOD a,0
+OPR 21,0
+JMP #switch_labell3,0
+LOD a,0
+OPR 21,0
+LOD a,0
+OPR 21,0
+OPR 0,0
